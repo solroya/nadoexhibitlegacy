@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+ <mapper namespace="memberMapper">
+ 
+ <insert id="joinMember">
+	INSERT INTO tbl_member
+	VALUES(seq_member.NEXTVAL, #{memid}, #{mememail}, #{mempass}, #{ischeckterms}, SYSDATE, SYSDATE)
+ </insert>
+ 
+ <select id="loginMember" resultType="com.exhibit.nado.domain.MemberDTO">
+ 	Select *
+ 	FROM tbl_member
+ 	WHERE memid=#{memid}
+ 	AND mempass=#{mempass}
+ </select>
+ </mapper>
