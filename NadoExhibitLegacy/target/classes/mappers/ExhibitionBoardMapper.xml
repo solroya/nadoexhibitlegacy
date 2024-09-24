@@ -20,12 +20,33 @@
 		regdate)
 		VALUES (seq_exhibition.nextval, #{mememail}, #{memid}, #{title}, #{picture},
 		#{content}, SYSDATE)
+		
+		<selectKey keyProperty="exno" resultType="Integer" order="AFTER">
+			SELECT seq_exhibition.currval FROM dual
+		</selectKey>
 	</insert>
 
 	<!-- 특정 전시관 조회 -->
 	<select id="read" parameterType="int"
 		resultType="com.exhibit.nado.domain.ExhibitionBoardDTO">
 		SELECT * FROM tbl_exhibition WHERE exno = #{exno}
+	</select>
+	
+	<!-- 전시관 페이징 뷰 -->
+	<select id="getListWithPaging" resultType="com.exhibit.nado.domain.ExhibitionBoardDTO">
+		<![CDATA[
+		select
+		exno, memid, title, regdate, viewcnt, likes
+		from
+			(
+			select /*+INDEX_DESC(tbl_exhibition PK_TBL_EXNO) */
+			rownum AS rn, exno, memid, title, regdate, viewcnt, likes
+			from
+			tbl_exhibition
+			where rownum <= #{pageNum} * #{amount}
+			)
+			where rn > (#{pageNum} - 1) * #{amount}
+		]]>
 	</select>
 
 	<!-- 전시관 수정 -->
@@ -43,4 +64,35 @@
 		DELETE FROM tbl_exhibition WHERE exno = #{exno}
 	</delete>
 
+
+	<!-- 조회수 증가 -->
+	<update id="updateViewCnt">
+	    <![CDATA[
+	    UPDATE tbl_exhibition
+	    SET viewcnt = viewcnt + 1
+	    WHERE exno = #{exno}
+	    ]]>
+	</update>
+	
+	<!-- 좋아요 증가 -->
+	<update id="increaseLikes">
+		UPDATE tbl_exhibition
+		SET likes = likes + 1
+		WHERE exno = #{exno}
+	</update>
+	
+	<!-- 좋아요 감소 -->
+	<update id="decreaseLikes">
+		UPDATE tbl_exhibition
+		SET likes = likes - 1
+		WHERE exno = #{exno}
+	</update>
+	
+	<!-- 좋아요 수 확인 -->
+	<select id="getLikes">
+		SELECT likes
+		FROM tbl_exhibition
+		WHERE exno = #{exno}
+	</select>
+	
 </mapper>

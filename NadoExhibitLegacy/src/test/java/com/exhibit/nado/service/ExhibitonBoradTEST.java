@@ -33,11 +33,24 @@ public class ExhibitonBoradTEST {
 //	@Test
 //	public void testList() throws Exception {
 //		log.info("testList ===> " + mockMvc.perform(MockMvcRequestBuilders
-//				.get("/exboard/list"))
+//				.get("/exboard/exlist"))
 //				.andReturn()
 //				.getModelAndView()
 //				.getModelMap());
 //	}
+	
+	@Test
+	public void testListPagin() throws Exception {
+		log.info("testList ===> " + mockMvc.perform(MockMvcRequestBuilders
+				.get("/exboard/exlist")
+				.param("pageNum", "1")
+				.param("amount", "10"))
+				.andReturn()
+				.getModelAndView()
+				.getModelMap());
+	}
+	
+	
 	
 //	@Test
 //	public void testRegister() throws Exception {
@@ -78,15 +91,15 @@ public class ExhibitonBoradTEST {
 //				.getModelMap());
 //	}
 	
-	@Test
-	public void testRemove() throws Exception {
-		log.info("testDelete ===> " + mockMvc.perform(MockMvcRequestBuilders
-				.post("/exboard/remove")
-				.param("exno", "10"))
-				.andReturn()
-				.getModelAndView()
-				.getModelMap());
-	}
+//	@Test
+//	public void testRemove() throws Exception {
+//		log.info("testDelete ===> " + mockMvc.perform(MockMvcRequestBuilders
+//				.post("/exboard/remove")
+//				.param("exno", "10"))
+//				.andReturn()
+//				.getModelAndView()
+//				.getModelMap());
+//	}
 	
 	
 	

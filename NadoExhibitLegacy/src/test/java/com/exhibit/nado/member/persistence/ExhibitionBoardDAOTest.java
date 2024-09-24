@@ -1,11 +1,18 @@
 package com.exhibit.nado.member.persistence;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.exhibit.nado.domain.Criteria;
 import com.exhibit.nado.domain.ExhibitionBoardDTO;
 import com.exhibit.nado.persistence.IExhibitionBoardDAO;
 
@@ -71,8 +78,41 @@ public class ExhibitionBoardDAOTest {
 //		ebDao.update(exBoardDto);
 //	}
 
+//	@Test
+//	public void deleteTest() throws Exception {
+//		log.info("deleted exhibitionBoard : {}", ebDao.delete(4));
+//	}
+	
+//	@Test
+//	public void viewCntTest() throws Exception {
+//		int exno = 61;
+//		ExhibitionBoardDTO viewCnt = ebDao.read(exno);
+//		int initialView = viewCnt.getViewcnt();
+//		ebDao.updateViewCnt(exno);
+//		ExhibitionBoardDTO updateViewCnt = ebDao.read(exno);
+//		int updateReuslt = updateViewCnt.getViewcnt();
+//		assertEquals(initialView + 1, updateReuslt);
+//	}
+	
+//	@Test
+//	public void increaseLikes() throws Exception {
+//		int exno = 61;
+//		ExhibitionBoardDTO likes = ebDao.read(exno);
+//		int initLike = likes.getLikes();
+//		ebDao.increaseLikes(exno);
+//		int updateLikes = likes.getLikes();
+//		
+//		assertEquals(initLike + 1, updateLikes);
+//		
+//	}
+	
 	@Test
-	public void deleteTest() throws Exception {
-		log.info("deleted exhibitionBoard : {}", ebDao.delete(4));
+	public void pagingViewTest() {
+		Criteria cri = new Criteria();
+		cri.setPageNum(1);
+		cri.setAmount(10);
+		List<ExhibitionBoardDTO> list = ebDao.getListWithPaging(cri);
+		assertNotNull(list);
+		list.forEach(board -> log.info("boardLog : {}", board));
 	}
 }

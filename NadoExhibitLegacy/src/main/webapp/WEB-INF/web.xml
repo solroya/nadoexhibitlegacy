@@ -17,15 +17,19 @@
 	</listener>
 	
 	<!-- UTF-8 처리 필터 등록 -->
-	<filter>
-		<filter-name>encoding</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-	</filter>
-	<filter-mapping>
-		<filter-name>encoding</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
+   <filter>
+      <filter-name>encoding</filter-name>
+      <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+      <init-param>
+         <param-name>encoding</param-name>
+         <param-value>UTF-8</param-value>
+      </init-param>
+   </filter>
+   <!-- UTF-8 처리 필터 매핑정보 등록 -->
+   <filter-mapping>
+      <filter-name>encoding</filter-name>
+      <url-pattern>/*</url-pattern> <!-- 루트 url내 모든 요청에 적용 -->
+   </filter-mapping>
 
 	<!-- Processes application requests -->
 	<servlet>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import com.exhibit.nado.domain.Criteria;
 import com.exhibit.nado.domain.ExhibitionBoardDTO;
 import com.exhibit.nado.persistence.IExhibitionBoardDAO;
 
@@ -58,5 +59,33 @@ public class ExhibitionBoardDAOImpl implements IExhibitionBoardDAO {
 	public ExhibitionBoardDTO read(int exno) throws Exception {
 		return session.selectOne(NAMESPACE + ".read", exno);
 	}
+
+	// 전시관 조회수 증가
+	@Override
+	public void updateViewCnt(int exno) throws Exception {
+		session.update(NAMESPACE + ".updateViewCnt", exno);
+	}
+
+	@Override
+	public void increaseLikes(int exno) throws Exception {
+		session.update(NAMESPACE + ".increaseLikes", exno);
+	}
+
+	@Override
+	public void decreaseLikes(int exno) throws Exception {
+		session.update(NAMESPACE + ".decreaseLikes", exno);
+	}
+
+	@Override
+	public void getLikes(int exno) throws Exception {
+		session.selectOne(NAMESPACE + "getLikes", exno);
+	}
+
+	@Override
+	public List<ExhibitionBoardDTO> getListWithPaging(Criteria cri) {
+		return session.selectList(NAMESPACE + ".getListWithPaging", cri);
+	}
+	
+	
 
 }
