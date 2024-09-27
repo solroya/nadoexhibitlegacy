@@ -2,6 +2,8 @@ package com.exhibit.nado.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.exhibit.nado.domain.Criteria;
 import com.exhibit.nado.domain.ExhibitionBoardDTO;
 

@@ -28,7 +28,7 @@
 						                <tr class="text-center">
 						                    <td><c:out value="${exboard.exno }"/></td>
 						                    <td><c:out value="${exboard.memid }"/></td>
-						                    <td><a href="${ctx}/exboard/read?exno=<c:out value='${exboard.exno }'/>">
+						                    <td><a class="move" href="${ctx}/exboard/read?exno=<c:out value='${exboard.exno }'/>">
 						                    	<c:out value="${exboard.title}"></c:out>
 						                    </a></td>
 						                    <td><fmt:formatDate value="${exboard.regdate }" pattern="yyyy-MM-dd / HH:mm:ss"/> </td>
@@ -44,19 +44,19 @@
 							    <ul class="pagination">
 							        <c:if test="${pageMaker.prev }">
 							            <li class="page-item">
-							                <a class="page-link" href="#">Pre</a>
+							                <a class="page-link" href="${pageMaker.startPage -1}">Pre</a>
 							            </li>
 							        </c:if>
 							
 							        <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-							            <li class="page-item">
-							                <a class="page-link" href="#">${num }</a>
+							            <li class="page-item" ${pageMaker.cri.pageNum == num ? "active" : ""} ">
+							                <a class="page-link" href="${num}">${num }</a>
 							            </li>
 							        </c:forEach>
 							
 							        <c:if test="${pageMaker.next }">
 							            <li class="page-item">
-							                <a class="page-link" href="#">Next</a>
+							                <a class="page-link" href="${pageMaker.endPage + 1 }">Next</a>
 							            </li>
 							        </c:if>
 							    </ul>
@@ -81,10 +81,16 @@
 		    </div>
 		  </div>
 		</div>
+		
+		<form action="${ctx}/exboard/exlist" method="get" id="actionForm">
+			<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum }">
+			<input type="hidden" name="amount" value="${pageMaker.cri.amount }">
+		</form>
 
         <script>
         	$(document).ready(function() {
-        		const result = "${result}";
+        		//const result = "${result}";
+        		var result = 'c:out value="${result}"/>';
         		
         		checkModal(result);
         		
@@ -121,6 +127,25 @@
         		$("#regBtn").on("click", function() {
         			self.location = "${ctx}/exboard/register";
         		});
+        		
+        		var actionForm = $("#actionForm");
+        		$(".page-item a").on("click", function(e){
+        			e.preventDefault();
+        			console.log("click");
+        			actionForm.find("input[name='pageNum']").val($(this).attr("href"));
+        			actionForm.submit();
+        		});
+        		
+        		// 게시믈 조회를 위한 이벤트 처리 추가
+/*         		$(".move").on("click", function(e){
+        			
+        			e.preventDefault();
+					actionForm.append("<input type='hidden' name='exno' value='"
+							+ $(this).attr("href")
+							+ "'>");
+        			actionForm.attr("action", "${ctx}/exboard/read");
+        			actionForm.submit();
+        		}); */
         	});
         </script>
 

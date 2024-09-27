@@ -103,6 +103,7 @@
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+		<!-- 기존 3.4.1 -->
 		<dependency>
 		    <groupId>org.mybatis</groupId>
 		    <artifactId>mybatis</artifactId>

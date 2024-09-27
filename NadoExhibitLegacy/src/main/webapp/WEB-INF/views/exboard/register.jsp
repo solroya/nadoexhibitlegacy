@@ -79,6 +79,7 @@
                                     <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                                     <!-- Submit Button-->
                                     <div class="d-grid"><button class="btn btn-primary btn-lg" id="regBtn" type="submit">등록하기</button></div>
+                                    <button class="btn btn-primary btn-lg" onclick="location.href='${ctx}'" >취소</button>
                                 </form>
                             </div>
                         </div>

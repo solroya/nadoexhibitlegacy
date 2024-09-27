@@ -31,6 +31,7 @@
     </head>
     <body class="d-flex flex-column h-100">
         <main class="flex-shrink-0">
+        
             <!-- Navigation-->
             <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 fixed-top">
                 <div class="container px-5">
@@ -50,9 +51,36 @@
 					        </li>
                             <li class="nav-item"><a class="nav-link" href="#">전시리뷰</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">이벤트</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#">고객센터</a></li>
+                            <li class="nav-item dropdown">
+					          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+					            고객센터
+					          </a>
+					          <ul class="dropdown-menu">
+					            <li><a class="dropdown-item" href="${ctx }/member/signup">회원가입</a></li>
+					            <li><a class="dropdown-item" href="${ctx }/member/updatemember">회원정보수정</a></li>
+					          </ul>
+					        </li>
+                              <c:catch>
+								<c:choose>
+								    <c:when test="${empty sessionScope.loginUser}">
+								        <li class="nav-item">
+								            <a class="nav-link" href="${ctx}/member/login">로그인</a>
+								        </li>
+								    </c:when>
+								    <c:otherwise>
+								        <li class="nav-item">
+								            <a class="nav-link">${sessionScope.loginUser.memid}님</a>
+								        </li>
+								        <li class="nav-item">
+								            <a class="nav-link" href="${ctx}/member/logout">로그아웃</a>
+								        </li>
+								    </c:otherwise>
+								</c:choose>
+					        </c:catch>
                         </ul>
                     </div>
                 </div>
             </nav>
             <!-- Header-->
+     </main>
+ 

@@ -5,15 +5,49 @@
   
  <mapper namespace="memberMapper">
  
+ <!--  회원 가입 기능 -->
  <insert id="joinMember">
 	INSERT INTO tbl_member
 	VALUES(seq_member.NEXTVAL, #{memid}, #{mememail}, #{mempass}, #{ischeckterms}, SYSDATE, SYSDATE)
  </insert>
  
+ <!-- 아이디 중복 검사 -->
+ <select id="idCheck" resultType="int">
+ 	SELECT COUNT(*)
+ 	FROM tbl_member
+ 	WHERE memid = #{memid}
+ </select>
+ 
+  <!-- 이메일 중복 검사 -->
+ <select id="emailCheck" resultType="int">
+ 	SELECT COUNT(*)
+ 	FROM tbl_member
+ 	WHERE mememail = #{mememail}
+ </select>
+ 
+ <!-- 로그인 기능 -->
  <select id="loginMember" resultType="com.exhibit.nado.domain.MemberDTO">
  	Select *
  	FROM tbl_member
- 	WHERE memid=#{memid}
+ 	WHERE mememail=#{mememail}
  	AND mempass=#{mempass}
  </select>
+ 
+ <!-- 회원정보 조회 기능 -->
+ <select id="selMember" resultType="com.exhibit.nado.domain.MemberDTO">
+ 	SELECT *
+	FROM tbl_member
+	WHERE mememail = #{mememail}
+ </select>
+ 
+ <!-- 로그아웃 기능 -->
+<!--  <select id="logout"></select> -->
+ 
+ <!-- 회원 정보 수정 기능 -->
+ <update id="updateMember">
+ 	UPDATE tbl_member
+	SET mempass = #{mempass}, memid = #{memid}
+	WHERE mememail = #{mememail}
+ </update>
+
  </mapper>

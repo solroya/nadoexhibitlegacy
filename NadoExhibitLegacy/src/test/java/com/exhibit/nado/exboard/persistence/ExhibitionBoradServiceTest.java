@@ -1,4 +1,4 @@
-package com.exhibit.nado.member.persistence;
+package com.exhibit.nado.exboard.persistence;
 
 import static org.junit.Assert.*;
 
